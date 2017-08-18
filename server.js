@@ -6,22 +6,22 @@ const express = require('express');
 const app = express();
 const jsonParser = bodyParser.json();
 
-app.get('/spec', function (req, res) {
+app.get('/spec', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/spec/:type', function (req, res){
+app.get('/spec/:type', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/validate', jsonParser, function (req, res){
+app.post('/validate', jsonParser, (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   res.send('Hello World 2');
 });
 
 // 405 for not allowed. Enforce an Allow header
-app.use(function (req, res) {
+app.use((req, res) => {
   res.status(404).send("Sorry can't find that!");
 });
 
