@@ -129,6 +129,7 @@ One area I didn't unit test, was the EventType instances. These objects are star
 Some areas that I could continue to work with more time:
 - logging: right now I have only set up a standard node request logger, but have not instrumented with my own logging
 - postman E2E test suite
+- testing: my testing of returned errors resulted in some boilerplate code that I would pull out.
 - a second pass at the ValidationError to better handle the recursive case
 - an explicit routing layer - didn't seem necessary for so few routes.
 
