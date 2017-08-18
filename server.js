@@ -2,6 +2,7 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const morgan = require('morgan');
 const _ = require('lodash');
 
 const events = require('./lib/events.js');
@@ -11,6 +12,7 @@ const ValidationError = require('./lib/types.js').ValidationError;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('combined'));
 
 // Contracts
 const eventsContract = _.mapValues(events, eventSchema => (eventSchema.getContract()));
@@ -38,27 +40,27 @@ app.get('/spec/:type', (req, res) => {
 });
 
 app.post('/validate', (req, res) => {
-  let reason;
+  let errorReason;
 
   if (req.body && req.body.type) {
-    const event = eventsContract[req.body.type];
+    const event = events[req.body.type];
     if (event) {
       try {
         event.validate(req.body);
         res.send('ok');
       } catch (error) {
         if (error instanceof ValidationError) {
-          reason = JSON.stringify(error.getFieldErrors());
+          errorReason = JSON.stringify(error.getFieldErrors());
         }
       }
     } else {
-      reason = 'invalid event type';
+      errorReason = 'invalid event type';
     }
   } else {
-    reason = 'missing arguments';
+    errorReason = 'missing arguments';
   }
 
-  res.status(400).send({errors: reason});
+  res.status(400).send({errors: errorReason});
 });
 
 // Handles all other routes
