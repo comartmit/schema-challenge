@@ -1,7 +1,7 @@
 {
   "name": "event-schemas",
   "version": "0.0.1",
-  "description": "Interview Event Schema Validation",
+  "description": "Event Schema Validation",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",

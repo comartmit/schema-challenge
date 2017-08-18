@@ -27,14 +27,14 @@ const serviceContract = {
 /* Routes */
 
 app.get('/spec', (req, res) => {
-  res.send(JSON.stringify(serviceContract), null, '\t');
+  res.send(serviceContract);
 });
 
 app.get('/spec/:type', (req, res) => {
   const type = req.params.type;
   if (!type || !(type in eventsContract)) return res.status(404).send('Event not found');
 
-  res.send(JSON.stringify(eventsContract[type]), null, '\t');
+  res.send(eventsContract[type]);
 });
 
 app.post('/validate', (req, res) => {
@@ -58,7 +58,7 @@ app.post('/validate', (req, res) => {
     reason = 'missing arguments';
   }
 
-  res.status(400).send(reason);
+  res.status(400).send({errors: reason});
 });
 
 // Handles all other routes
