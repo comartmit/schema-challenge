@@ -132,4 +132,4 @@ Some areas that I could continue to work with more time:
 - testing: my testing of returned errors resulted in some boilerplate code that I would pull out.
 - a second pass at the ValidationError to better handle the recursive case
 - an explicit routing layer - didn't seem necessary for so few routes.
-
+- (Saturday 8/19) - a `from_string` approach to schema definition that would support serialization to and from json for schemas themselves.
